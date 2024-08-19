@@ -31,13 +31,16 @@ const LoginForm = () => {
   });
 
   const onSubmit = async (values) => {
-    const data = await fetch("http://localhost:3001/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
+    const data = await fetch(
+      "https://nova-api-s2m2r.ondigitalocean.app//api/auth/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify(values),
       },
-      body: JSON.stringify(values),
-    });
+    );
     const tokens = await data.json();
     localStorage.setItem("access_token", tokens.access_token);
     localStorage.setItem("refresh_token", tokens.refresh_token);

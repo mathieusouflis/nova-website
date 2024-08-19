@@ -39,13 +39,16 @@ const validateForm = async (data) => {
     } catch (err) {
       console.log(err);
     }
-    const response = await fetch("http://localhost:3001/api/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
+    const response = await fetch(
+      "https://nova-api-s2m2r.ondigitalocean.app//api/auth/register",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify(data),
       },
-      body: JSON.stringify(data),
-    });
+    );
 
     if (response.ok === false) {
       const result = await response.json();

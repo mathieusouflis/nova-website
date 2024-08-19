@@ -38,17 +38,20 @@ const PostForm = () => {
     console.log("Access Token:", accessToken);
 
     try {
-      const response = await fetch("http://localhost:3001/api/posts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json;charset=utf-8",
-          Authorization: "Bearer " + accessToken,
+      const response = await fetch(
+        "https://nova-api-s2m2r.ondigitalocean.app//api/posts",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json;charset=utf-8",
+            Authorization: "Bearer " + accessToken,
+          },
+          body: JSON.stringify({
+            text: values.content,
+            conversation: null,
+          }),
         },
-        body: JSON.stringify({
-          text: values.content,
-          conversation: null,
-        }),
-      });
+      );
 
       console.log("Response status:", response.status);
 

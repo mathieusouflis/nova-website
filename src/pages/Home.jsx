@@ -11,7 +11,7 @@ const Home = () => {
     const fetchPosts = async () => {
       const access_token = localStorage.getItem("access_token");
       const result = await fetch(
-        "http://localhost:3001/api/posts/query?max_results=100",
+        "https://nova-api-s2m2r.ondigitalocean.app//api/posts/query?max_results=100",
         {
           headers: {
             Authorization: "Bearer " + access_token,
