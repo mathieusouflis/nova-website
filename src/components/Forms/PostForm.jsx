@@ -39,7 +39,7 @@ const PostForm = () => {
 
     try {
       const response = await fetch(
-        "https://nova-api-s2m2r.ondigitalocean.app//api/posts",
+        "https://nova-api-s2m2r.ondigitalocean.app/api/posts",
         {
           method: "POST",
           headers: {

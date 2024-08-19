@@ -32,7 +32,7 @@ const LoginForm = () => {
 
   const onSubmit = async (values) => {
     const data = await fetch(
-      "https://nova-api-s2m2r.ondigitalocean.app//api/auth/login",
+      "https://nova-api-s2m2r.ondigitalocean.app/api/auth/login",
       {
         method: "POST",
         headers: {

@@ -32,7 +32,7 @@ const Post = ({ author_id, text, creation_date, id }) => {
     const isPostLiked = async () => {
       const access_token = localStorage.getItem("access_token");
       const response = await fetch(
-        `https://nova-api-s2m2r.ondigitalocean.app//api/posts/${id}/likes/${author_id}`,
+        `https://nova-api-s2m2r.ondigitalocean.app/api/posts/${id}/likes/${author_id}`,
         {
           headers: {
             Authorization: "Bearer " + access_token,
@@ -54,7 +54,7 @@ const Post = ({ author_id, text, creation_date, id }) => {
     const access_token = localStorage.getItem("access_token");
     if (!liked) {
       const response = await fetch(
-        `https://nova-api-s2m2r.ondigitalocean.app//api/users/${author_id}/likes`,
+        `https://nova-api-s2m2r.ondigitalocean.app/api/users/${author_id}/likes`,
         {
           method: "POST",
           headers: {
@@ -72,7 +72,7 @@ const Post = ({ author_id, text, creation_date, id }) => {
       setLiked(true);
     } else {
       const response = await fetch(
-        `https://nova-api-s2m2r.ondigitalocean.app//api/users/${author_id}/likes/${id}`,
+        `https://nova-api-s2m2r.ondigitalocean.app/api/users/${author_id}/likes/${id}`,
         {
           method: "DELETE",
           headers: {

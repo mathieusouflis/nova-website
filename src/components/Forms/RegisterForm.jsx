@@ -40,7 +40,7 @@ const validateForm = async (data) => {
       console.log(err);
     }
     const response = await fetch(
-      "https://nova-api-s2m2r.ondigitalocean.app//api/auth/register",
+      "https://nova-api-s2m2r.ondigitalocean.app/api/auth/register",
       {
         method: "POST",
         headers: {
