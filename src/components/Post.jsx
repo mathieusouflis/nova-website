@@ -18,7 +18,7 @@ const Post = ({ author_id, text, creation_date, id }) => {
     const fetchUser = async () => {
       const access_token = localStorage.getItem("access_token");
       const response = await fetch(
-        "https://nova-api-s2m2r.ondigitalocean.app//api/users/" + author_id,
+        "https://nova-api-s2m2r.ondigitalocean.app/api/users/" + author_id,
         {
           headers: {
             Authorization: "Bearer " + access_token,
