@@ -10,12 +10,12 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input.jsx";
 import { useToast } from "../ui/use-toast";
 import { useNavigate } from "react-router-dom";
 import { Textarea } from "../ui/textarea";
 import { ToastAction } from "../ui/toast";
 import { DialogClose } from "../ui/dialog";
+import apiURL from "@/utils/apiUrl";
 
 const formSchema = z.object({
   content: z.string().min(1),
@@ -38,20 +38,17 @@ const PostForm = () => {
     console.log("Access Token:", accessToken);
 
     try {
-      const response = await fetch(
-        "https://nova-api-s2m2r.ondigitalocean.app/api/posts",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json;charset=utf-8",
-            Authorization: "Bearer " + accessToken,
-          },
-          body: JSON.stringify({
-            text: values.content,
-            conversation: null,
-          }),
+      const response = await fetch(apiURL + "/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+          Authorization: "Bearer " + accessToken,
         },
-      );
+        body: JSON.stringify({
+          text: values.content,
+          conversation: null,
+        }),
+      });
 
       console.log("Response status:", response.status);
 

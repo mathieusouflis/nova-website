@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { timeAgo } from "@/utils/timeAgo";
 import UserCard from "./UserCard";
+import apiURL from "@/utils/apiUrl";
 
 const Post = ({ author_id, text, creation_date, id }) => {
   const [user, setUser] = useState({ username: "" });
@@ -17,28 +18,23 @@ const Post = ({ author_id, text, creation_date, id }) => {
   useEffect(() => {
     const fetchUser = async () => {
       const access_token = localStorage.getItem("access_token");
-      const response = await fetch(
-        "https://nova-api-s2m2r.ondigitalocean.app/api/users/" + author_id,
-        {
-          headers: {
-            Authorization: "Bearer " + access_token,
-          },
+      const response = await fetch(apiURL + "/users/" + author_id, {
+        headers: {
+          Authorization: "Bearer " + access_token,
         },
-      );
+      });
       const userData = await response.json();
       setUser(userData);
     };
 
     const isPostLiked = async () => {
       const access_token = localStorage.getItem("access_token");
-      const response = await fetch(
-        `https://nova-api-s2m2r.ondigitalocean.app/api/posts/${id}/likes/${author_id}`,
-        {
-          headers: {
-            Authorization: "Bearer " + access_token,
-          },
+      const user_id = localStorage.getItem("user_id");
+      const response = await fetch(`${apiURL}/posts/${id}/likes/${user_id}`, {
+        headers: {
+          Authorization: "Bearer " + access_token,
         },
-      );
+      });
       if (!response.ok) {
         return;
       } else {
@@ -52,34 +48,29 @@ const Post = ({ author_id, text, creation_date, id }) => {
 
   const like = async () => {
     const access_token = localStorage.getItem("access_token");
+    const user_id = localStorage.getItem("user_id");
     if (!liked) {
-      const response = await fetch(
-        `https://nova-api-s2m2r.ondigitalocean.app/api/users/${author_id}/likes`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json;charset=utf-8",
-            Authorization: "Bearer " + access_token,
-          },
-          body: JSON.stringify({
-            post_id: id,
-          }),
+      const response = await fetch(`${apiURL}/users/${user_id}/likes`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+          Authorization: "Bearer " + access_token,
         },
-      );
+        body: JSON.stringify({
+          post_id: id,
+        }),
+      });
 
       if (!response.ok) return;
 
       setLiked(true);
     } else {
-      const response = await fetch(
-        `https://nova-api-s2m2r.ondigitalocean.app/api/users/${author_id}/likes/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: "Bearer " + access_token,
-          },
+      const response = await fetch(`${apiURL}/users/${user_id}/likes/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + access_token,
         },
-      );
+      });
 
       if (!response.ok) return;
 

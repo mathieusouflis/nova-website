@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input.jsx";
 import { useToast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
+import apiURL from "@/utils/apiUrl";
 
 const formSchema = z.object({
   username: z
@@ -39,16 +40,13 @@ const validateForm = async (data) => {
     } catch (err) {
       console.log(err);
     }
-    const response = await fetch(
-      "https://nova-api-s2m2r.ondigitalocean.app/api/auth/register",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json;charset=utf-8",
-        },
-        body: JSON.stringify(data),
+    const response = await fetch(apiURL + "/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
       },
-    );
+      body: JSON.stringify(data),
+    });
 
     if (response.ok === false) {
       const result = await response.json();

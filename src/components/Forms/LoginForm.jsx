@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input.jsx";
 import { useToast } from "../ui/use-toast";
 import { useNavigate } from "react-router-dom";
+import apiURL from "@/utils/apiUrl";
 
 const formSchema = z.object({
   email: z.string(),
@@ -31,19 +32,17 @@ const LoginForm = () => {
   });
 
   const onSubmit = async (values) => {
-    const data = await fetch(
-      "https://nova-api-s2m2r.ondigitalocean.app/api/auth/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json;charset=utf-8",
-        },
-        body: JSON.stringify(values),
+    const response = await fetch(apiURL + "/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
       },
-    );
-    const tokens = await data.json();
-    localStorage.setItem("access_token", tokens.access_token);
-    localStorage.setItem("refresh_token", tokens.refresh_token);
+      body: JSON.stringify(values),
+    });
+    const data = await response.json();
+    localStorage.setItem("access_token", data.access_token);
+    localStorage.setItem("refresh_token", data.refresh_token);
+    localStorage.setItem("user_id", data.id);
     localStorage.setItem("logged", true);
     navigate("/");
     toast({

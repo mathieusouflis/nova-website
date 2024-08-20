@@ -22,7 +22,7 @@ const Register = () => {
           to="/login"
           className={` ${buttonVariants({ variant: "link" })} py-0 px-0 `}
         >
-          Allready have an account ?
+          Already have an account ?
         </Link>
       </CardFooter>
     </Card>
