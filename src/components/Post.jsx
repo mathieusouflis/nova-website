@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { timeAgo } from "@/utils/timeAgo";
 import UserCard from "./UserCard";
 import apiURL from "@/utils/apiUrl";
+import { fetchWithAuth } from "@/utils/fetchWithAuth";
 
 const Post = ({ author_id, text, creation_date, id }) => {
   const [user, setUser] = useState({ username: "" });
@@ -17,24 +18,14 @@ const Post = ({ author_id, text, creation_date, id }) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const access_token = localStorage.getItem("access_token");
-      const response = await fetch(apiURL + "/users/" + author_id, {
-        headers: {
-          Authorization: "Bearer " + access_token,
-        },
-      });
+      const response = await fetchWithAuth("/users/" + author_id);
       const userData = await response.json();
       setUser(userData);
     };
 
     const isPostLiked = async () => {
-      const access_token = localStorage.getItem("access_token");
       const user_id = localStorage.getItem("user_id");
-      const response = await fetch(`${apiURL}/posts/${id}/likes/${user_id}`, {
-        headers: {
-          Authorization: "Bearer " + access_token,
-        },
-      });
+      const response = await fetchWithAuth(`/posts/${id}/likes/${user_id}`);
       if (!response.ok) {
         return;
       } else {
@@ -47,14 +38,12 @@ const Post = ({ author_id, text, creation_date, id }) => {
   }, [author_id, id]);
 
   const like = async () => {
-    const access_token = localStorage.getItem("access_token");
     const user_id = localStorage.getItem("user_id");
     if (!liked) {
-      const response = await fetch(`${apiURL}/users/${user_id}/likes`, {
+      const response = await fetchWithAuth(`/users/${user_id}/likes`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json;charset=utf-8",
-          Authorization: "Bearer " + access_token,
         },
         body: JSON.stringify({
           post_id: id,
@@ -65,11 +54,8 @@ const Post = ({ author_id, text, creation_date, id }) => {
 
       setLiked(true);
     } else {
-      const response = await fetch(`${apiURL}/users/${user_id}/likes/${id}`, {
+      const response = await fetchWithAuth(`/users/${user_id}/likes/${id}`, {
         method: "DELETE",
-        headers: {
-          Authorization: "Bearer " + access_token,
-        },
       });
 
       if (!response.ok) return;

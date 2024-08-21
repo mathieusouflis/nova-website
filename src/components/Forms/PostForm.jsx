@@ -16,6 +16,7 @@ import { Textarea } from "../ui/textarea";
 import { ToastAction } from "../ui/toast";
 import { DialogClose } from "../ui/dialog";
 import apiURL from "@/utils/apiUrl";
+import { fetchWithAuth } from "@/utils/fetchWithAuth";
 
 const formSchema = z.object({
   content: z.string().min(1),
@@ -38,11 +39,10 @@ const PostForm = () => {
     console.log("Access Token:", accessToken);
 
     try {
-      const response = await fetch(apiURL + "/posts", {
+      const response = await fetchWithAuth("/posts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json;charset=utf-8",
-          Authorization: "Bearer " + accessToken,
         },
         body: JSON.stringify({
           text: values.content,

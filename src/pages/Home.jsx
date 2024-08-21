@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar.jsx";
 import Post from "@/components/Post";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import apiURL from "@/utils/apiUrl";
+import { fetchWithAuth } from "@/utils/fetchWithAuth";
 import { useEffect, useState } from "react";
 
 const Home = () => {
@@ -10,12 +10,7 @@ const Home = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const access_token = localStorage.getItem("access_token");
-      const result = await fetch(apiURL + "/posts/query?max_results=100", {
-        headers: {
-          Authorization: "Bearer " + access_token,
-        },
-      });
+      const result = await fetchWithAuth("/posts/query?max_results=100");
       const data = await result.json();
       setPosts(data.posts);
     };

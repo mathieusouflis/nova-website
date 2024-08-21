@@ -38,12 +38,11 @@ const LoginForm = () => {
         "Content-Type": "application/json;charset=utf-8",
       },
       body: JSON.stringify(values),
+      credentials: "include",
     });
     const data = await response.json();
     localStorage.setItem("access_token", data.access_token);
-    localStorage.setItem("refresh_token", data.refresh_token);
     localStorage.setItem("user_id", data.id);
-    localStorage.setItem("logged", true);
     navigate("/");
     toast({
       title: "Logged in !",
