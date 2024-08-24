@@ -15,7 +15,6 @@ import { useNavigate } from "react-router-dom";
 import { Textarea } from "../ui/textarea";
 import { ToastAction } from "../ui/toast";
 import { DialogClose } from "../ui/dialog";
-import apiURL from "@/utils/apiUrl";
 import { fetchWithAuth } from "@/utils/fetchWithAuth";
 
 const formSchema = z.object({

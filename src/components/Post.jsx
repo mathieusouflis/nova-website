@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { timeAgo } from "@/utils/timeAgo";
 import UserCard from "./UserCard";
-import apiURL from "@/utils/apiUrl";
 import { fetchWithAuth } from "@/utils/fetchWithAuth";
 
 const Post = ({ author_id, text, creation_date, id }) => {
