@@ -14,6 +14,7 @@ import { fetchWithAuth } from "@/utils/fetchWithAuth";
 const Post = ({ author_id, text, creation_date, id }) => {
   const [user, setUser] = useState({ username: "" });
   const [liked, setLiked] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUser = async () => {
