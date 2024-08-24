@@ -24,7 +24,7 @@ const Navbar = () => {
   return (
     <NavigationMenu
       orientation="vertical"
-      className="ml-10 h-screen items-start mt-14 mr-10"
+      className="ml-10 h-screen items-start mt-14 mr-10 sticky top-14"
     >
       <NavigationMenuList className="flex-col items-start gap-3 space-x-0">
         <NavigationMenuItem>
