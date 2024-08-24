@@ -65,8 +65,19 @@ const Post = ({ author_id, text, creation_date, id }) => {
     }
   };
 
+  const onPostClick = async () => {
+    navigate("/p/" + id);
+  };
+
+  const stopPropagation = (e) => {
+    e.stopPropagation();
+  };
+
   return (
-    <Card className="m-4 w-full max-w-4xl">
+    <Card
+      className="m-4 w-full max-w-4xl hover:bg-secondary transition-all cursor-pointer"
+      onClick={onPostClick}
+    >
       <CardContent className="pt-6 pb-3">
         <div className="flex flex-row">
           <HoverCard>
