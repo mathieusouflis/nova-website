@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/toaster";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
+import PostPage from "./pages/PostPage";
 
 const router = createBrowserRouter([
   {
