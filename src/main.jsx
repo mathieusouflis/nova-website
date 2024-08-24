@@ -22,6 +22,10 @@ const router = createBrowserRouter([
     path: "/register",
     element: <Register />,
   },
+  {
+    path: "/p/:post_id",
+    element: <PostPage />,
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(
