@@ -21,7 +21,7 @@ const formSchema = z.object({
   content: z.string().min(1),
 });
 
-const PostForm = () => {
+const PostForm = ({ conversation = null }) => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const form = useForm({
@@ -45,7 +45,7 @@ const PostForm = () => {
         },
         body: JSON.stringify({
           text: values.content,
-          conversation: null,
+          conversation: conversation,
         }),
       });
 
