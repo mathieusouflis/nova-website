@@ -10,8 +10,11 @@ const Home = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const result = await fetchWithAuth("/posts/query?max_results=100");
+      const result = await fetchWithAuth(
+        "/posts/query?max_results=100&is_comment=false",
+      );
       const data = await result.json();
+      console.log(data);
       setPosts(data.posts);
     };
 
@@ -43,6 +46,10 @@ const Home = () => {
                   id={post.id}
                   text={post.text}
                   creation_date={post.creation_date}
+                  likeCount={post._count.likes}
+                  commentCount={post.numComment}
+                  author_name={post.author.username}
+                  author_description={post.author.description}
                 />
               ))}
             </div>

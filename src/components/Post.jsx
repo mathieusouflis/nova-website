@@ -10,19 +10,30 @@ import UserCard from "./UserCard";
 import { useEffect, useState } from "react";
 import { timeAgo } from "@/utils/timeAgo";
 import { fetchWithAuth } from "@/utils/fetchWithAuth";
+import { useNavigate } from "react-router-dom";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
+import PostForm from "./Forms/PostForm";
 
-const Post = ({ author_id, text, creation_date, id }) => {
-  const [user, setUser] = useState({ username: "" });
+const Post = ({
+  author_id,
+  text,
+  creation_date,
+  id,
+  likeCount = 0,
+  commentCount = 0,
+  author_name,
+  author_description,
+}) => {
   const [liked, setLiked] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const response = await fetchWithAuth("/users/" + author_id);
-      const userData = await response.json();
-      setUser(userData);
-    };
-
     const isPostLiked = async () => {
       const user_id = localStorage.getItem("user_id");
       const response = await fetchWithAuth(`/posts/${id}/likes/${user_id}`);
@@ -32,8 +43,6 @@ const Post = ({ author_id, text, creation_date, id }) => {
         setLiked(true);
       }
     };
-
-    fetchUser();
     isPostLiked();
   }, [author_id, id]);
 
@@ -91,9 +100,9 @@ const Post = ({ author_id, text, creation_date, id }) => {
               </Avatar>
             </HoverCardTrigger>
             <UserCard
-              username={user.username}
-              description={user.description}
-              id={user.id}
+              username={author_name}
+              description={author_description}
+              id={author_id}
             />
           </HoverCard>
           <div className="flex flex-col ml-2">
@@ -105,8 +114,9 @@ const Post = ({ author_id, text, creation_date, id }) => {
                     className={
                       buttonVariants({ variant: "link" }) + "ml-0 pl-0"
                     }
+                    onClick={stopPropagation}
                   >
-                    @{user.username}
+                    @{author_name}
                   </Link>
                 </HoverCardTrigger>
                 <TypographyMuted className="ml-2">
@@ -114,32 +124,56 @@ const Post = ({ author_id, text, creation_date, id }) => {
                 </TypographyMuted>
               </div>
               <UserCard
-                username={user.username}
-                description={user.description}
-                id={user.id}
+                username={author_name}
+                description={author_description}
+                id={author_id}
               />
             </HoverCard>
             <span>
               <TypographyP className="mt-3">{text}</TypographyP>
             </span>
-            <div className="mt-2 flex flex-row gap-2">
-              <Button
-                variant="ghost"
-                className="group rounded-full p-2 w-fit h-fit hover:text-destructive"
-                onClick={async () => {
-                  await like();
-                }}
-              >
-                <Heart
-                  className={`w-5 h-5 text-muted-foreground group-hover:stroke-[#FF6363] ${liked ? "stroke-[#FF6363] fill-[#FF6363]" : ""}`}
-                />
-              </Button>
-              <Button
-                variant="ghost"
-                className="group rounded-full p-2 w-fit h-fit"
-              >
-                <MessageCircle className="w-5 h-5 text-muted-foreground group-hover:text-[#63C9FF]" />
-              </Button>
+            <div className="mt-2 flex flex-row gap-3">
+              <div className="flex flex-row gap-1 items-center">
+                <Button
+                  variant="ghost"
+                  className="group rounded-full p-2 w-fit h-fit hover:text-destructive"
+                  onClick={async (e) => {
+                    await like(e);
+                  }}
+                >
+                  <Heart
+                    className={`w-5 h-5 text-muted-foreground group-hover:stroke-[#FF6363] ${liked ? "stroke-[#FF6363] fill-[#FF6363]" : ""}`}
+                  />
+                </Button>
+                <span>
+                  <TypographyP>{likeCount}</TypographyP>
+                </span>
+              </div>
+              <Dialog>
+                <div className="flex flex-row gap-1 items-center">
+                  <DialogTrigger
+                    asChild
+                    className="w-full"
+                    onClick={stopPropagation}
+                  >
+                    <Button
+                      variant="ghost"
+                      className="group rounded-full p-2 w-fit h-fit"
+                    >
+                      <MessageCircle className="w-5 h-5 text-muted-foreground group-hover:text-[#63C9FF]" />
+                    </Button>
+                  </DialogTrigger>
+                  <span>
+                    <TypographyP>{commentCount}</TypographyP>
+                  </span>
+                </div>
+                <DialogContent onClick={stopPropagation}>
+                  <DialogHeader>
+                    <DialogTitle>New Post</DialogTitle>
+                  </DialogHeader>
+                  <PostForm conversation={id} />
+                </DialogContent>
+              </Dialog>
             </div>
           </div>
         </div>
@@ -153,6 +187,10 @@ Post.propTypes = {
   text: PropTypes.string.isRequired,
   creation_date: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  likeCount: PropTypes.number,
+  commentCount: PropTypes.number,
+  author_name: PropTypes.string.isRequired,
+  author_description: PropTypes.string,
 };
 
 export default Post;

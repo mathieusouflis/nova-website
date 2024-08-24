@@ -21,6 +21,7 @@ const UserCard = ({ username, description, id }) => {
           className={
             buttonVariants({ variant: "link" }) + "ml-0 pl-0 text-base"
           }
+          onClick={(e) => e.stopPropagation()}
         >
           @{username}
         </Link>
@@ -35,7 +36,7 @@ const UserCard = ({ username, description, id }) => {
 
 UserCard.propTypes = {
   username: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  description: PropTypes.string,
   id: PropTypes.string.isRequired,
 };
 
