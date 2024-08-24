@@ -6,9 +6,9 @@ import { Avatar, AvatarImage } from "./ui/avatar";
 import { TypographyMuted, TypographyP } from "./ui/Text";
 import { Heart, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import UserCard from "./UserCard";
 import { useEffect, useState } from "react";
 import { timeAgo } from "@/utils/timeAgo";
-import UserCard from "./UserCard";
 import { fetchWithAuth } from "@/utils/fetchWithAuth";
 
 const Post = ({ author_id, text, creation_date, id }) => {
@@ -36,8 +36,10 @@ const Post = ({ author_id, text, creation_date, id }) => {
     isPostLiked();
   }, [author_id, id]);
 
-  const like = async () => {
+  const like = async (e) => {
+    stopPropagation(e);
     const user_id = localStorage.getItem("user_id");
+    setLiked((previouce_like) => (previouce_like ? false : true));
     if (!liked) {
       const response = await fetchWithAuth(`/users/${user_id}/likes`, {
         method: "POST",
