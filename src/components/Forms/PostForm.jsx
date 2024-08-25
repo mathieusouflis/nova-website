@@ -21,7 +21,7 @@ const formSchema = z.object({
   content: z.string().min(1),
 });
 
-const PostForm = ({ conversation = null }) => {
+const PostForm = ({ conversation = null, commentCounter = null }) => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const form = useForm({
@@ -54,7 +54,7 @@ const PostForm = ({ conversation = null }) => {
       if (!response.ok) {
         throw new Error("Network response was not ok.");
       }
-
+      commentCounter ? commentCounter((oldCount) => oldCount + 1) : null;
       const data = await response.json();
       console.log("Response data:", data);
 

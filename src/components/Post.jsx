@@ -32,6 +32,7 @@ const Post = ({
 }) => {
   const [liked, setLiked] = useState(false);
   const [likeCounter, setLinkeCounter] = useState(likeCount);
+  const [commentCounter, setCommentCounter] = useState(commentCount);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -175,14 +176,17 @@ const Post = ({
                     </Button>
                   </DialogTrigger>
                   <span>
-                    <TypographyP>{commentCount}</TypographyP>
+                    <TypographyP>{commentCounter}</TypographyP>
                   </span>
                 </div>
                 <DialogContent onClick={stopPropagation}>
                   <DialogHeader>
                     <DialogTitle>New Post</DialogTitle>
                   </DialogHeader>
-                  <PostForm conversation={id} />
+                  <PostForm
+                    conversation={id}
+                    commentCounter={setCommentCounter}
+                  />
                 </DialogContent>
               </Dialog>
             </div>
