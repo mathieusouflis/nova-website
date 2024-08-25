@@ -62,6 +62,7 @@ const PostPage = () => {
               text={comment.text}
               creation_date={comment.creation_date}
               likeCount={comment._count.likes}
+              commentCount={comment.numComment}
               author_name={comment.author.username}
               author_description={comment.author.description}
             />
