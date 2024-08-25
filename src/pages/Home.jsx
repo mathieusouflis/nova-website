@@ -14,7 +14,6 @@ const Home = () => {
         "/posts/query?max_results=100&is_comment=false",
       );
       const data = await result.json();
-      console.log(data);
       setPosts(data.posts);
     };
 
