@@ -31,6 +31,7 @@ const Post = ({
   author_description,
 }) => {
   const [liked, setLiked] = useState(false);
+  const [likeCounter, setLinkeCounter] = useState(likeCount);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,6 +52,7 @@ const Post = ({
     const user_id = localStorage.getItem("user_id");
     setLiked((previouce_like) => (previouce_like ? false : true));
     if (!liked) {
+      setLinkeCounter((previouceLikeCount) => previouceLikeCount + 1);
       const response = await fetchWithAuth(`/users/${user_id}/likes`, {
         method: "POST",
         headers: {
@@ -61,15 +63,24 @@ const Post = ({
         }),
       });
 
-      if (!response.ok) return;
+      if (!response.ok) {
+        setLiked(false);
+        setLinkeCounter((previouceLikeCount) => previouceLikeCount - 1);
+        return;
+      }
 
       setLiked(true);
     } else {
+      setLinkeCounter((previouceLikeCount) => previouceLikeCount - 1);
       const response = await fetchWithAuth(`/users/${user_id}/likes/${id}`, {
         method: "DELETE",
       });
 
-      if (!response.ok) return;
+      if (!response.ok) {
+        setLiked(true);
+        setLinkeCounter((previouceLikeCount) => previouceLikeCount + 1);
+        return;
+      }
 
       setLiked(false);
     }
@@ -146,7 +157,7 @@ const Post = ({
                   />
                 </Button>
                 <span>
-                  <TypographyP>{likeCount}</TypographyP>
+                  <TypographyP>{likeCounter}</TypographyP>
                 </span>
               </div>
               <Dialog>
