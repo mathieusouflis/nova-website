@@ -25,8 +25,8 @@ const Post = ({
   text,
   creation_date,
   id,
-  likeCount = 0,
-  commentCount = 0,
+  likeCount,
+  commentCount,
   author_name,
   author_description,
 }) => {

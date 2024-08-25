@@ -16,6 +16,7 @@ const PostPage = () => {
   useEffect(() => {
     const fetchPost = async () => {
       const response = await fetchWithAuth("/posts/" + post_id);
+      if (!response.ok) return;
       const data = await response.json();
       setPost(data);
     };
@@ -39,6 +40,7 @@ const PostPage = () => {
         <div className="flex flex-col items-center">
           {post ? (
             <Post
+              key={post.id}
               author_id={post.author_id}
               id={post.id}
               text={post.text}
