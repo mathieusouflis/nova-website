@@ -34,8 +34,9 @@ const fetchWithAuth = async (url, options = {}) => {
 
   if (response.status === 401) {
     const refreshed = await refreshAccessToken();
+
     if (refreshed) {
-      return fetchWithAuth(apiURL + url, options);
+      return fetchWithAuth(url, options);
     } else {
       throw new Error("Session expirée, veuillez vous reconnecter.");
     }
