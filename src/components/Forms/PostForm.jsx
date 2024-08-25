@@ -32,11 +32,6 @@ const PostForm = ({ conversation = null, commentCounter = null }) => {
   });
 
   const onSubmit = async (values) => {
-    console.log("Form values:", values);
-
-    const accessToken = localStorage.getItem("access_token");
-    console.log("Access Token:", accessToken);
-
     try {
       const response = await fetchWithAuth("/posts", {
         method: "POST",
@@ -49,14 +44,11 @@ const PostForm = ({ conversation = null, commentCounter = null }) => {
         }),
       });
 
-      console.log("Response status:", response.status);
-
       if (!response.ok) {
         throw new Error("Network response was not ok.");
       }
       commentCounter ? commentCounter((oldCount) => oldCount + 1) : null;
       const data = await response.json();
-      console.log("Response data:", data);
 
       toast({
         title: "Post Created!",
