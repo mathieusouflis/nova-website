@@ -2,11 +2,15 @@ import Navbar from "@/components/Navbar.jsx";
 import Post from "@/components/Post";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import useWindowSize from "@/hooks/screenSize";
 import { fetchWithAuth } from "@/utils/fetchWithAuth";
 import { useEffect, useState } from "react";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
+
+  const isMobile = useWindowSize().isPhone;
+  const isTablet = useWindowSize().isTablet;
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -21,13 +25,15 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="flex flex-row">
+    <div
+      className={`flex ${isMobile || isTablet ? "flex-col-reverse items-center justify-between h-screen" : "flex-row h-screen"}`}
+    >
       <Navbar />
       <Tabs
         defaultValue="foryou"
-        className="flex flex-col items-center w-full mt-3"
+        className="flex flex-col items-center w-full h-full"
       >
-        <TabsList className="w-full max-w-4xl">
+        <TabsList className="w-full max-w-4xl mt-5">
           <TabsTrigger value="foryou" className="w-full">
             For You
           </TabsTrigger>
@@ -35,9 +41,9 @@ const Home = () => {
             Follow
           </TabsTrigger>
         </TabsList>
-        <TabsContent value="foryou" className="w-full">
-          <ScrollArea>
-            <div className="flex flex-col items-center">
+        <TabsContent value="foryou" className="w-full h-full">
+          <ScrollArea className="h-full">
+            <div className="flex flex-col items-center h-0">
               {posts.map((post) => (
                 <Post
                   key={post.id}

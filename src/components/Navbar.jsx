@@ -18,20 +18,31 @@ import { Button } from "./ui/button";
 
 import PostForm from "./Forms/PostForm";
 import { DialogTitle } from "@radix-ui/react-dialog";
+import useWindowSize from "@/hooks/screenSize";
 
 const Navbar = () => {
+  const isMobile = useWindowSize().isPhone;
+  const isTablet = useWindowSize().isTablet;
   const linkClass = navigationMenuTriggerStyle() + "flex gap-2 text-lg";
   return (
     <NavigationMenu
-      orientation="vertical"
-      className="ml-10 h-screen items-start mt-14 mr-10 sticky top-14"
+      orientation={isMobile || isTablet ? "vertical" : "horizontal"}
+      className={
+        isMobile || isTablet
+          ? null
+          : "ml-10 h-fit flex items-start mt-14 mr-10 sticky top-14"
+      }
     >
-      <NavigationMenuList className="flex-col items-start gap-3 space-x-0">
+      <NavigationMenuList
+        className={
+          isMobile || isTablet ? null : "flex-col items-start gap-3 space-x-0"
+        }
+      >
         <NavigationMenuItem>
           <Link to="/">
             <NavigationMenuLink className={linkClass}>
               <House />
-              Home
+              {isMobile || isTablet ? null : "Home"}
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
@@ -39,7 +50,7 @@ const Navbar = () => {
           <Link to="/">
             <NavigationMenuLink className={linkClass}>
               <Search />
-              Search
+              {isMobile || isTablet ? null : "Search"}
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
@@ -47,7 +58,7 @@ const Navbar = () => {
           <Link to="/">
             <NavigationMenuLink className={linkClass}>
               <Bell />
-              Notifications
+              {isMobile || isTablet ? null : "Notifications"}
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
@@ -55,14 +66,14 @@ const Navbar = () => {
           <Link to="/">
             <NavigationMenuLink className={linkClass}>
               <UserRound />
-              Profil
+              {isMobile || isTablet ? null : "Profil"}
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem className="w-full">
           <Dialog>
             <DialogTrigger asChild className="w-full">
-              <Button variant="outline">Post</Button>
+              <Button>Post</Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
