@@ -27,7 +27,13 @@ const UserCard = ({ username, description, id }) => {
         >
           @{username}
         </Link>
+        <Button
+          className="rounded-full"
           size="xs"
+          variant={followed ? "secondary" : "primary"}
+        >
+          Follow
+        </Button>
       </div>
       <Separator />
       <span>
