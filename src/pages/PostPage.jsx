@@ -34,7 +34,7 @@ const PostPage = () => {
     fetchComments();
   }, [post_id]);
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-col-reverse items-center justify-between h-screen">
       <Navbar />
       <ScrollArea className="w-full max-w-4xl">
         <div className="flex flex-col items-center">
