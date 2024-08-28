@@ -3,12 +3,15 @@ import Post from "@/components/Post";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { TypographyH1 } from "@/components/ui/Text";
+import useWindowSize from "@/hooks/screenSize";
 import { fetchWithAuth } from "@/utils/fetchWithAuth";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 const PostPage = () => {
+  const isMobile = useWindowSize().isPhone;
+  const isTablet = useWindowSize().isTablet;
   const { post_id } = useParams();
   const [post, setPost] = useState();
   const [comments, setComments] = useState([]);
@@ -34,7 +37,9 @@ const PostPage = () => {
     fetchComments();
   }, [post_id]);
   return (
-    <div className="flex flex-col-reverse items-center justify-between h-screen">
+    <div
+      className={`flex ${isMobile || isTablet ? "flex-col-reverse items-center justify-between h-screen" : ""}`}
+    >
       <Navbar />
       <ScrollArea className="w-full max-w-4xl">
         <div className="flex flex-col items-center">
