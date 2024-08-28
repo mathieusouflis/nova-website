@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { HoverCardContent } from "./ui/hover-card";
 import { TypographyP } from "./ui/Text";
-import { buttonVariants } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 import { Separator } from "./ui/separator";
+import { useState } from "react";
 
 const UserCard = ({ username, description, id }) => {
+  const [followed, setFollowed] = useState(false);
   return (
     <HoverCardContent className="flex flex-col gap-2">
       <div className="flex flex-row gap-2 items-center">
@@ -25,6 +27,7 @@ const UserCard = ({ username, description, id }) => {
         >
           @{username}
         </Link>
+          size="xs"
       </div>
       <Separator />
       <span>
