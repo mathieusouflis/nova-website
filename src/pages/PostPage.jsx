@@ -51,7 +51,8 @@ const PostPage = () => {
               text={post.text}
               creation_date={post.creation_date}
               likeCount={post._count.likes}
-              commentCount={post.numComment}
+              isLiking={post.likes.length > 0}
+              commentCount={post._count.comments}
               author_name={post.author.username}
               author_description={post.author.description}
             />
@@ -69,7 +70,8 @@ const PostPage = () => {
               text={comment.text}
               creation_date={comment.creation_date}
               likeCount={comment._count.likes}
-              commentCount={comment.numComment}
+              isLiking={comment.likes.length > 0}
+              commentCount={comment._count.comments}
               author_name={comment.author.username}
               author_description={comment.author.description}
             />

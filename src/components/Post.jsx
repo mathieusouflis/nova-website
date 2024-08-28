@@ -26,27 +26,15 @@ const Post = ({
   creation_date,
   id,
   likeCount,
+  isLiking,
   commentCount,
   author_name,
   author_description,
 }) => {
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState(isLiking);
   const [likeCounter, setLinkeCounter] = useState(likeCount);
   const [commentCounter, setCommentCounter] = useState(commentCount);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const isPostLiked = async () => {
-      const user_id = localStorage.getItem("user_id");
-      const response = await fetchWithAuth(`/posts/${id}/likes/${user_id}`);
-      if (!response.ok) {
-        return;
-      } else {
-        setLiked(true);
-      }
-    };
-    isPostLiked();
-  }, [author_id, id]);
 
   const like = async (e) => {
     stopPropagation(e);

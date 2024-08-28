@@ -52,7 +52,8 @@ const Home = () => {
                   text={post.text}
                   creation_date={post.creation_date}
                   likeCount={post._count.likes}
-                  commentCount={post.numComment}
+                  isLiking={post.likes.length > 0}
+                  commentCount={post._count.comments}
                   author_name={post.author.username}
                   author_description={post.author.description}
                 />
