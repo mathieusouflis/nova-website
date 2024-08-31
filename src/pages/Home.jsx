@@ -15,7 +15,7 @@ const Home = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       const result = await fetchWithAuth(
-        "/posts/query?max_results=100&is_comment=false",
+        "/posts/query?max_results=100&conversation_id=false",
       );
       const data = await result.json();
       setPosts(data.posts);

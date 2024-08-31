@@ -25,8 +25,7 @@ const PostPage = () => {
     };
     const fetchComments = async () => {
       const response = await fetchWithAuth(
-        "/posts/query?max_results=100&is_comment=true&conversation_id=" +
-          post_id,
+        "/posts/query?max_results=100&conversation_id=" + post_id,
       );
       if (!response.ok) return;
       const comments = await response.json();
