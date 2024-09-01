@@ -7,7 +7,6 @@ import { TypographyMuted, TypographyP } from "./ui/Text";
 import { Heart, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import UserCard from "./UserCard";
-import { useEffect, useState } from "react";
 import { timeAgo } from "@/utils/timeAgo";
 import { fetchWithAuth } from "@/utils/fetchWithAuth";
 import { useNavigate } from "react-router-dom";
@@ -19,6 +18,7 @@ import {
   DialogTrigger,
 } from "./ui/dialog";
 import PostForm from "./Forms/PostForm";
+import { useState } from "react";
 
 const Post = ({
   author_id,
@@ -27,6 +27,7 @@ const Post = ({
   id,
   likeCount,
   isLiking,
+  isFollowing,
   commentCount,
   author_name,
   author_description,
@@ -127,6 +128,7 @@ const Post = ({
                 username={author_name}
                 description={author_description}
                 id={author_id}
+                isFollowing={isFollowing}
               />
             </HoverCard>
             <span>

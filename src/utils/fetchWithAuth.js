@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import apiURL from "./apiUrl";
 
 const refreshAccessToken = async () => {

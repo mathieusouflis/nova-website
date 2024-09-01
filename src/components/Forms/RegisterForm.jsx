@@ -19,8 +19,8 @@ const formSchema = z.object({
   username: z
     .string()
     .regex(
-      /^[A-Za-z0-9_]{2,24}$/,
-      "Le nom d'utilisateur doit :\nContenir que des lettres ainsi que des '_'.\nFaire entre 2 et 13 characters.",
+      /^[A-Za-z0-9_]{2,20}$/,
+      "Le nom d'utilisateur doit :\nContenir que des lettres ainsi que des '_'.\nFaire entre 2 et 20 characters.",
     ),
   email: z
     .string()

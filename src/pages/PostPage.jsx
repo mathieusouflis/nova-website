@@ -51,6 +51,9 @@ const PostPage = () => {
               creation_date={post.creation_date}
               likeCount={post._count.likes}
               isLiking={post.likes.length > 0}
+              isFollowing={
+                post.author._count.users_followed === 1 ? true : false
+              }
               commentCount={post._count.comments}
               author_name={post.author.username}
               author_description={post.author.description}
@@ -70,6 +73,9 @@ const PostPage = () => {
               creation_date={comment.creation_date}
               likeCount={comment._count.likes}
               isLiking={comment.likes.length > 0}
+              isFollowing={
+                post.author._count.users_followed === 1 ? true : false
+              }
               commentCount={comment._count.comments}
               author_name={comment.author.username}
               author_description={comment.author.description}
