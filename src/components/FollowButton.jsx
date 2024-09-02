@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { fetchWithAuth } from "@/utils/fetchWithAuth";
 
-const FollowButton = ({ targetedId, following = false }) => {
+const FollowButton = ({ targetedId, following = false, size = "xs" }) => {
   const [followingState, setFollowingState] = useState(following);
   const [hovering, setHovering] = useState(false);
 
@@ -47,7 +47,7 @@ const FollowButton = ({ targetedId, following = false }) => {
   return (
     <Button
       className="rounded-full"
-      size="xs"
+      size={size}
       variant={
         followingState ? (hovering ? "destructive" : "secondary") : "default"
       }
