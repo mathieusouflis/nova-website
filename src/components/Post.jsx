@@ -31,6 +31,7 @@ const Post = ({
   commentCount,
   author_name,
   author_description,
+  author_avatar,
 }) => {
   const [liked, setLiked] = useState(isLiking);
   const [likeCounter, setLinkeCounter] = useState(likeCount);
@@ -94,16 +95,14 @@ const Post = ({
           <HoverCard>
             <HoverCardTrigger asChild className="justify-start">
               <Avatar>
-                <AvatarImage
-                  src="https://cdn.discordapp.com/avatars/731235072400949289/e1ec09b164ebd19b9dfa7ef2c4fa1c17.png?size=512"
-                  alt="avatar"
-                />
+                <AvatarImage src={author_avatar} alt="avatar" />
               </Avatar>
             </HoverCardTrigger>
             <UserCard
               username={author_name}
               description={author_description}
               id={author_id}
+              avatar={author_avatar}
             />
           </HoverCard>
           <div className="flex flex-col ml-2">
@@ -129,6 +128,7 @@ const Post = ({
                 description={author_description}
                 id={author_id}
                 isFollowing={isFollowing}
+                avatar={author_avatar}
               />
             </HoverCard>
             <span>

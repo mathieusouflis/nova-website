@@ -59,6 +59,7 @@ const Home = () => {
                   commentCount={post._count.comments}
                   author_name={post.author.username}
                   author_description={post.author.description}
+                  author_avatar={post.author.avatar}
                 />
               ))}
             </div>

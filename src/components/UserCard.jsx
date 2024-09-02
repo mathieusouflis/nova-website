@@ -7,15 +7,12 @@ import { buttonVariants } from "./ui/button";
 import { Separator } from "./ui/separator";
 import FollowButton from "./FollowButton";
 
-const UserCard = ({ username, description, id, isFollowing }) => {
+const UserCard = ({ username, description, id, isFollowing, avatar }) => {
   return (
     <HoverCardContent className="flex flex-col gap-2 max-w-lg">
       <div className="flex flex-row gap-2 items-center">
         <Avatar>
-          <AvatarImage
-            src="https://cdn.discordapp.com/avatars/731235072400949289/e1ec09b164ebd19b9dfa7ef2c4fa1c17.png?size=512"
-            alt="avatar"
-          />
+          <AvatarImage src={avatar} alt="avatar" />
         </Avatar>
         <Link
           to={`/u/${id}`}

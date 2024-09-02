@@ -57,6 +57,7 @@ const PostPage = () => {
               commentCount={post._count.comments}
               author_name={post.author.username}
               author_description={post.author.description}
+              author_avatar={post.author.avatar}
             />
           ) : (
             <></>
@@ -79,6 +80,7 @@ const PostPage = () => {
               commentCount={comment._count.comments}
               author_name={comment.author.username}
               author_description={comment.author.description}
+              author_avatar={post.author.avatar}
             />
           ))}
         </div>
