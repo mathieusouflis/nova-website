@@ -26,7 +26,7 @@ const Home = () => {
 
   return (
     <div
-      className={`flex ${isMobile || isTablet ? "flex-col-reverse items-center justify-between h-screen" : "flex-row h-screen"}`}
+      className={`flex h-screen  ${isMobile || isTablet ? "flex-col-reverse items-center justify-between" : "flex-row"}`}
     >
       <Navbar />
       <Tabs

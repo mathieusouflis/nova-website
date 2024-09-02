@@ -37,7 +37,7 @@ const PostPage = () => {
   }, [post_id]);
   return (
     <div
-      className={`flex ${isMobile || isTablet ? "flex-col-reverse items-center justify-between h-screen" : ""}`}
+      className={`flex h-screen ${isMobile || isTablet ? "flex-col-reverse items-center justify-between" : "flex-row"}`}
     >
       <Navbar />
       <ScrollArea className="w-full max-w-4xl">
