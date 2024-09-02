@@ -63,7 +63,6 @@ const Navbar = () => {
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link to="/">
           <Link to={`/u/${localStorage.getItem("user_id")}`}>
             <NavigationMenuLink className={linkClass}>
               <UserRound />
