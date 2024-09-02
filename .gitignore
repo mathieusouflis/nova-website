@@ -1,3 +1,5 @@
+./src/utils/apiUrl.js
+
 # Logs
 logs
 *.log
@@ -22,4 +24,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-./src/utils/apiUrl.js
