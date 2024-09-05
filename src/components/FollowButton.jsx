@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
-import { fetchWithAuth } from "@/utils/fetchWithAuth";
+import { useFetchWithAuth } from "@/utils/fetchWithAuth";
 
 const FollowButton = ({ targetedId, following = false, size = "xs" }) => {
+  const fetchWithAuth = useFetchWithAuth();
   const [followingState, setFollowingState] = useState(following);
   const [hovering, setHovering] = useState(false);
 

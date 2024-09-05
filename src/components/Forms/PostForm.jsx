@@ -15,13 +15,14 @@ import { useNavigate } from "react-router-dom";
 import { Textarea } from "../ui/textarea";
 import { ToastAction } from "../ui/toast";
 import { DialogClose } from "../ui/dialog";
-import { fetchWithAuth } from "@/utils/fetchWithAuth";
+import { useFetchWithAuth } from "@/utils/fetchWithAuth";
 
 const formSchema = z.object({
   content: z.string().min(1),
 });
 
 const PostForm = ({ conversation = null, commentCounter = null }) => {
+  const fetchWithAuth = useFetchWithAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
   const form = useForm({

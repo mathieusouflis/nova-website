@@ -3,10 +3,11 @@ import Post from "@/components/Post";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import useWindowSize from "@/hooks/screenSize";
-import { fetchWithAuth } from "@/utils/fetchWithAuth";
+import { useFetchWithAuth } from "@/utils/fetchWithAuth";
 import { useEffect, useState } from "react";
 
 const Home = () => {
+  const fetchWithAuth = useFetchWithAuth();
   const [posts, setPosts] = useState([]);
 
   const isMobile = useWindowSize().isPhone;

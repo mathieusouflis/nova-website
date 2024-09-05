@@ -8,7 +8,7 @@ import { Heart, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import UserCard from "./UserCard";
 import { timeAgo } from "@/utils/timeAgo";
-import { fetchWithAuth } from "@/utils/fetchWithAuth";
+import { useFetchWithAuth } from "@/utils/fetchWithAuth";
 import { useNavigate } from "react-router-dom";
 import {
   Dialog,
@@ -33,6 +33,7 @@ const Post = ({
   author_description,
   author_avatar,
 }) => {
+  const fetchWithAuth = useFetchWithAuth();
   const [liked, setLiked] = useState(isLiking);
   const [likeCounter, setLinkeCounter] = useState(likeCount);
   const [commentCounter, setCommentCounter] = useState(commentCount);

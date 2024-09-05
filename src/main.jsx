@@ -10,11 +10,17 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import PostPage from "./pages/PostPage";
 import ProfilPage from "./pages/ProfilPage";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { AuthProvider } from "./context/auth.context";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: (
+      <ProtectedRoute>
+        <Home />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/login",
@@ -26,17 +32,27 @@ const router = createBrowserRouter([
   },
   {
     path: "/p/:post_id",
-    element: <PostPage />,
+    element: (
+      <ProtectedRoute>
+        <PostPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/u/:user_id",
-    element: <ProfilPage />,
+    element: (
+      <ProtectedRoute>
+        <ProfilPage />
+      </ProtectedRoute>
+    ),
   },
 ]);
 
 createRoot(document.getElementById("root")).render(
   <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-    <RouterProvider router={router} />
-    <Toaster />
+    <AuthProvider>
+      <RouterProvider router={router} />
+      <Toaster />
+    </AuthProvider>
   </ThemeProvider>,
 );

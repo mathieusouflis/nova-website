@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input.jsx";
 import { useToast } from "../ui/use-toast";
 import { useNavigate } from "react-router-dom";
 import apiURL from "@/utils/apiUrl";
+import { useAuth } from "@/context/auth.context";
 
 const formSchema = z.object({
   email: z.string(),
@@ -21,6 +22,7 @@ const formSchema = z.object({
 });
 
 const LoginForm = () => {
+  const { login } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
   const form = useForm({
@@ -43,6 +45,7 @@ const LoginForm = () => {
     const data = await response.json();
     localStorage.setItem("access_token", data.access_token);
     localStorage.setItem("user_id", data.id);
+    login({ id: data.id });
     navigate("/");
     toast({
       title: "Logged in !",
