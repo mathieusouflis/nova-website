@@ -1,4 +1,6 @@
+import { useAuth } from "@/context/auth.context";
 import apiURL from "./apiUrl";
+import Cookies from "js-cookie";
 
 const refreshAccessToken = async () => {
   const response = await fetch(apiURL + "/tokens/refresh", {
@@ -12,7 +14,6 @@ const refreshAccessToken = async () => {
 
   if (response.ok) {
     const data = await response.json();
-    console.log(data);
     localStorage.setItem("access_token", data.access_token);
     return true;
   } else {
@@ -20,29 +21,48 @@ const refreshAccessToken = async () => {
   }
 };
 
-const fetchWithAuth = async (url, options = {}) => {
-  const accessToken = localStorage.getItem("access_token");
-  if (!accessToken) throw new Error("Veuillez vous connecter.");
-  const response = await fetch(apiURL + url, {
-    ...options,
-    headers: {
-      ...options.headers,
-      Authorization: `Bearer ${accessToken}`,
-    },
-    credentials: "include",
-  });
+export function useFetchWithAuth() {
+  const { logout } = useAuth();
 
-  if (response.status === 401) {
-    const refreshed = await refreshAccessToken();
-
-    if (refreshed) {
-      return fetchWithAuth(url, options);
-    } else {
-      throw new Error("Session expirée, veuillez vous reconnecter.");
+  const fetchWithAuth = async (url, options = {}) => {
+    const accessToken = localStorage.getItem("access_token");
+    if (!accessToken) {
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("id");
+      Cookies.remove("refresh_token");
+      logout();
+      throw new Error("Veuillez vous connecter.");
     }
-  }
 
-  return response;
-};
+    let response = await fetch(apiURL + url, {
+      ...options,
+      headers: {
+        ...options.headers,
+        Authorization: `Bearer ${accessToken}`,
+      },
+      credentials: "include",
+    });
 
-export { fetchWithAuth };
+    if (response.status === 401) {
+      const refreshed = await refreshAccessToken();
+
+      if (refreshed) {
+        response = await fetch(apiURL + url, {
+          ...options,
+          headers: {
+            ...options.headers,
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+          credentials: "include",
+        });
+      } else {
+        logout();
+        throw new Error("Session expirée, veuillez vous reconnecter.");
+      }
+    }
+
+    return response;
+  };
+
+  return fetchWithAuth;
+}

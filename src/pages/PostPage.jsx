@@ -4,12 +4,13 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { TypographyH1 } from "@/components/ui/Text";
 import useWindowSize from "@/hooks/screenSize";
-import { fetchWithAuth } from "@/utils/fetchWithAuth";
+import { useFetchWithAuth } from "@/utils/fetchWithAuth";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 const PostPage = () => {
+  const fetchWithAuth = useFetchWithAuth();
   const isMobile = useWindowSize().isPhone;
   const isTablet = useWindowSize().isTablet;
   const { post_id } = useParams();

@@ -13,12 +13,13 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { TypographyH3, TypographyP } from "@/components/ui/Text";
 import useWindowSize from "@/hooks/screenSize";
-import { fetchWithAuth } from "@/utils/fetchWithAuth";
+import { useFetchWithAuth } from "@/utils/fetchWithAuth";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 const ProfilPage = () => {
+  const fetchWithAuth = useFetchWithAuth();
   const { user_id } = useParams();
   const myId = localStorage.getItem("user_id");
   const isMe = user_id === myId ? true : false;
