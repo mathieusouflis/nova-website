@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { TypographyH3, TypographyP } from "@/components/ui/Text";
+import UserCard from "@/components/UserCard";
 import useWindowSize from "@/hooks/screenSize";
 import { useFetchWithAuth } from "@/utils/fetchWithAuth";
 import { useEffect } from "react";
@@ -29,6 +30,8 @@ const ProfilPage = () => {
 
   const [userPosts, setUserPosts] = useState([]);
   const [following, setFollowing] = useState();
+  const [followingList, setFollowingList] = useState([]);
+  const [followerList, setFollowerList] = useState([]);
 
   useEffect(() => {
     const getPosts = async (user_id) => {
@@ -52,8 +55,23 @@ const ProfilPage = () => {
       setUser(user);
     };
 
+    const getFollowers = async (user_id) => {
+      const response = await fetchWithAuth(`/users/${user_id}/followers`);
+      if (!response.ok) return;
+      const data = await response.json();
+      setFollowerList(data);
+    };
+    const getFollowings = async (user_id) => {
+      const response = await fetchWithAuth(`/users/${user_id}/following`);
+      if (!response.ok) return;
+      const data = await response.json();
+      setFollowingList(data);
+    };
+
     getPosts(user_id);
     getUser(user_id);
+    getFollowers(user_id);
+    getFollowings(user_id);
   }, [user_id]);
 
   return (
@@ -98,8 +116,16 @@ const ProfilPage = () => {
                   </DialogTrigger>
                   <DialogContent>
                     <DialogHeader>
-                      <DialogTitle>Followers</DialogTitle>
+                      <DialogTitle>Following</DialogTitle>
                     </DialogHeader>
+                    <ScrollArea>
+                      {followingList.map((following) => {
+                        following = following.user_followed;
+                        return (
+                          <div key={following.id}>{following.username}</div>
+                        );
+                      })}
+                    </ScrollArea>
                   </DialogContent>
                 </Dialog>
                 <Dialog>
@@ -115,6 +141,12 @@ const ProfilPage = () => {
                     <DialogHeader>
                       <DialogTitle>Followers</DialogTitle>
                     </DialogHeader>
+                    <ScrollArea>
+                      {followerList.map((follower) => {
+                        follower = follower.user_following;
+                        return <div key={follower.id}>{follower.username}</div>;
+                      })}
+                    </ScrollArea>
                   </DialogContent>
                 </Dialog>
               </div>
