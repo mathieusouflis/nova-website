@@ -42,6 +42,14 @@ const LoginForm = () => {
       body: JSON.stringify(values),
       credentials: "include",
     });
+
+    if (!response.ok) {
+      return form.setError("password", {
+        type: "manual",
+        message: "Email or Password is incorect.",
+      });
+    }
+
     const data = await response.json();
     localStorage.setItem("access_token", data.access_token);
     localStorage.setItem("user_id", data.id);
