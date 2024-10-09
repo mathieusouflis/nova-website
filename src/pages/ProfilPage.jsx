@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { TypographyH3, TypographyP } from "@/components/ui/Text";
-import UserCard from "@/components/UserCard";
 import useWindowSize from "@/hooks/screenSize";
 import { useFetchWithAuth } from "@/utils/fetchWithAuth";
 import { useEffect } from "react";
