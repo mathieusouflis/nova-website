@@ -13,7 +13,7 @@ import basicSsl from "@vitejs/plugin-basic-ssl";
 //   },
 // });
 
-PROD;
+// PROD;
 export default defineConfig({
   plugins: [react()],
   resolve: {
