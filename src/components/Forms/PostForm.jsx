@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button.jsx";
@@ -75,33 +75,35 @@ const PostForm = ({ conversation = null, commentCounter = null }) => {
   };
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 flex flex-col content-center"
-      >
-        <FormField
-          control={form.control}
-          name="content"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Textarea
-                  type="content"
-                  placeholder="Dites bonjour !"
-                  className="resize-none"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <DialogClose asChild>
-          <Button type="submit">Post !</Button>
-        </DialogClose>
-      </form>
-    </Form>
+    <FormProvider {...form}>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-8 flex flex-col content-center"
+        >
+          <FormField
+            control={form.control}
+            name="content"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Textarea
+                    type="content"
+                    placeholder="Dites bonjour !"
+                    className="resize-none"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <DialogClose asChild>
+            <Button type="submit">Post !</Button>
+          </DialogClose>
+        </form>
+      </Form>
+    </FormProvider>
   );
 };
 
