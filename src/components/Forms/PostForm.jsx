@@ -14,7 +14,6 @@ import { useToast } from "../ui/use-toast";
 import { useNavigate } from "react-router-dom";
 import { Textarea } from "../ui/textarea";
 import { ToastAction } from "../ui/toast";
-import { DialogClose } from "../ui/dialog";
 import { useFetchWithAuth } from "@/utils/fetchWithAuth";
 
 const formSchema = z.object({
@@ -64,6 +63,8 @@ const PostForm = ({ conversation = null, commentCounter = null }) => {
           </ToastAction>
         ),
       });
+
+      document.querySelector('[data-state="open"]').click()
     } catch (error) {
       console.error("There was an error!", error);
       toast({
@@ -98,9 +99,7 @@ const PostForm = ({ conversation = null, commentCounter = null }) => {
               </FormItem>
             )}
           />
-          <DialogClose asChild>
-            <Button type="submit">Post !</Button>
-          </DialogClose>
+          <Button type="submit">Post !</Button>
         </form>
       </Form>
     </FormProvider>
