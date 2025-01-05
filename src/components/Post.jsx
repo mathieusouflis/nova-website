@@ -41,7 +41,7 @@ const Post = ({
 
   const like = async (e) => {
     stopPropagation(e);
-    const user_id = localStorage.getItem("user_id");
+    const user_id = sessionStorage.getItem("user_id");
     setLiked((previouce_like) => (previouce_like ? false : true));
     if (!liked) {
       setLinkeCounter((previouceLikeCount) => previouceLikeCount + 1);

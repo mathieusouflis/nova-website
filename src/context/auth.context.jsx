@@ -12,8 +12,8 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem("access_token");
-    const id = localStorage.getItem("user_id");
+    const token = sessionStorage.getItem("access_token");
+    const id = sessionStorage.getItem("user_id");
     if (token && id) setUser({ id });
     setLoading(false);
   }, []);

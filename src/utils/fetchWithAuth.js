@@ -14,7 +14,7 @@ const refreshAccessToken = async () => {
 
   if (response.ok) {
     const data = await response.json();
-    localStorage.setItem("access_token", data.access_token);
+    sessionStorage.setItem("access_token", data.access_token);
     return true;
   } else {
     return false;
@@ -25,10 +25,10 @@ export function useFetchWithAuth() {
   const { logout } = useAuth();
 
   const fetchWithAuth = async (url, options = {}) => {
-    const accessToken = localStorage.getItem("access_token");
+    const accessToken = sessionStorage.getItem("access_token");
     if (!accessToken) {
-      localStorage.removeItem("access_token");
-      localStorage.removeItem("id");
+      sessionStorage.removeItem("access_token");
+      sessionStorage.removeItem("id");
       Cookies.remove("refresh_token");
       logout();
       throw new Error("Veuillez vous connecter.");
@@ -51,7 +51,7 @@ export function useFetchWithAuth() {
           ...options,
           headers: {
             ...options.headers,
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+            Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
           },
           credentials: "include",
         });

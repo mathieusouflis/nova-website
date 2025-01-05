@@ -9,7 +9,7 @@ const FollowButton = ({ targetedId, following = false, size = "xs" }) => {
 
   const onClickEvent = async (e) => {
     e.stopPropagation();
-    const userId = localStorage.getItem("user_id");
+    const userId = sessionStorage.getItem("user_id");
     setFollowingState((oldState) => (oldState ? false : true));
     if (followingState) {
       const response = await fetchWithAuth(

@@ -1,4 +1,4 @@
-import { StrictMode } from "react";
+import CookieConsent from "react-cookie-consent";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
@@ -51,6 +51,16 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
     <AuthProvider>
+      <CookieConsent
+        location="bottom"
+        buttonText="I understand"
+        cookieName="cookie_consent"
+        style={{ background: "#2B373B" }}
+        buttonStyle={{ color: "#4e503b", fontSize: "13px" }}
+        expires={150}
+      >
+        This website uses cookies to enhance the user experience.
+      </CookieConsent>
       <RouterProvider router={router} />
       <Toaster />
     </AuthProvider>

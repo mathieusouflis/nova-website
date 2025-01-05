@@ -21,7 +21,7 @@ import { useParams } from "react-router-dom";
 const ProfilPage = () => {
   const fetchWithAuth = useFetchWithAuth();
   const { user_id } = useParams();
-  const myId = localStorage.getItem("user_id");
+  const myId = sessionStorage.getItem("user_id");
   const isMe = user_id === myId ? true : false;
   const isMobile = useWindowSize().isPhone;
   const isTablet = useWindowSize().isTablet;
